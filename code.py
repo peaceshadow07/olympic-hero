@@ -13,13 +13,6 @@ data.rename(columns={'Total':'Total_Medals'},inplace=True)
 data.head(10)
 
 
-# --------------
-#Code starts here
-
-
-
-
-
 data['Better_Event'] = np.where(data['Total_Summer']>=data['Total_Winter'],'Summer','Winter')
 data['Better_Event'] =np.where(data['Total_Summer'] ==data['Total_Winter'],'Both',data['Better_Event'])
 print(data.head())
@@ -31,8 +24,6 @@ for key,value in better_event.items():
 print(better_event)
 
 
-# --------------
-#Code starts here
 
 
 
@@ -48,8 +39,7 @@ common = list(set(top_10).intersection(set(top_10_summer)).intersection(set(top_
 # common = pd.merge(common,top_10_winter,how='inner')
 
 
-# --------------
-#Code starts here
+
 top_df = data[data['Country_Name'].isin(top_10)]
 summer_df = data[data['Country_Name'].isin(top_10_summer)]
 winter_df = data[data['Country_Name'].isin(top_10_winter)]
@@ -64,8 +54,7 @@ ax_2.set_title('Summer Top Performer')
 ax_3.set_title('Winter Top  Performer')
 
 
-# --------------
-#Code starts here
+
 
 summer_df['Golden_Ratio'] = summer_df['Gold_Summer']/summer_df['Total_Summer']
 
@@ -85,22 +74,16 @@ top_country_gold = list(top_df['Country_Name'][top_df['Golden_Ratio']==top_max_r
 
 
 
-
-
-# --------------
-#Code starts here
 data_1 = data.drop(data.index[146])
 data_1['Total_Points'] = data_1['Gold_Total']*3+data_1['Silver_Total']*2+data_1['Bronze_Total']
 most_points = data_1['Total_Points'].max()
 best_country = list(data_1['Country_Name'][data_1['Total_Points']==most_points])[0]
 
 
-# --------------
-#Code starts here
 best = data[data['Country_Name']==best_country]
 best = best[['Gold_Total','Silver_Total','Bronze_Total']]
 best.plot(kind='bar',stacked=True)
-plt.xlabel('United States')
+plt.xlabel(best['Country_Name'])
 plt.ylabel('Medals Tally')
 plt.xticks(rotation=45)
 
